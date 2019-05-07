@@ -22,6 +22,7 @@ module.exports.run = function(csv){
 
 		function buildObject(header, line) {
 			let newObj = {}
+	    line = line.split(",")
 			for (let i = 0; i < header.length; i++) {
 				newObj[header[i]] = line[i]
 			}
@@ -29,11 +30,13 @@ module.exports.run = function(csv){
 		}
 
 		let splitOnLine = csv.split("\n")
-		let header = splitOnLine[0]
+		let header = splitOnLine[0].split(',')
 		let body = splitOnLine.slice(1)
 		// maps body array and builds an object for each line
-		return body.map(line => {
+		let newArray = body.map(line => {
 			return buildObject(header, line)
 		})
+		// console.log(newArray)
+		return newArray
 
 };
