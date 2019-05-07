@@ -15,5 +15,25 @@ module.exports.run = function(csv){
 
 	Write your code below the comment.
 */
+		// check type
+		if (typeof csv !== "string") {
+			return [{error: "csv is not stringified" }]
+		}
+
+		function buildObject(header, line) {
+			let newObj = {}
+			for (let i = 0; i < header.length; i++) {
+				newObj[header[i]] = line[i]
+			}
+			return newObj
+		}
+
+		let splitOnLine = csv.split("\n")
+		let header = splitOnLine[0]
+		let body = splitOnLine.slice(1)
+		// maps body array and builds an object for each line
+		return body.map(line => {
+			return buildObject(header, line)
+		})
 
 };
